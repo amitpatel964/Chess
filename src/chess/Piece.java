@@ -16,7 +16,7 @@ public abstract class Piece {
      * Names the piece depending on what kind of piece is being defined
      * @param pieceName	Name of the piece
      */
-    public Piece(String pieceName){
+    public Piece(String pieceName) {
         this.pieceName = pieceName;
     }
 
@@ -25,7 +25,7 @@ public abstract class Piece {
      * 
      * @return	Returns name of a piece
      */
-    public String getPieceName(){
+    public String getPieceName() {
         return this.pieceName;
     }
 
@@ -38,7 +38,6 @@ public abstract class Piece {
      * @return 	Return false if this version is called
      */
 	public boolean isMoveValid(Board board, String currentPosition, String nextPosition) {
-		
 		return false;
 	}
 	
@@ -52,7 +51,6 @@ public abstract class Piece {
 	 * @return	Return false if this version is called
 	 */
 	public boolean isMoveValid(HashMap<String,Piece> boardgame, String currentPosition, String nextPosition) {
-
 		return false;
 	}
     
@@ -65,8 +63,7 @@ public abstract class Piece {
 	 * @param nextPosition 	The position the piece is moving to
 	 * @return	Return false if this version is called
 	 */
-    public boolean isPieceBlocked(HashMap<String,Piece> boardgame, String currentPosition, String nextPosition)
-    {
+    public boolean isPieceBlocked(HashMap<String,Piece> boardgame, String currentPosition, String nextPosition){
     	return true;
     }
 }

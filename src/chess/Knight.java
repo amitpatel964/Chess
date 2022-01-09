@@ -11,7 +11,7 @@ import java.util.List;
  *
  */
 
-public class Knight extends Piece{
+public class Knight extends Piece {
 
 	/**
 	 * Names the Knight piece. It should be wN or bN.
@@ -76,10 +76,8 @@ public class Knight extends Piece{
 		builder.append((char)(currentPosition.charAt(1) - 2));
 		possibleCoordinates.add(builder.toString());
 		
-		for(String coordinate: possibleCoordinates)
-		{
-			if (coordinate.equals(nextPosition))
-			{
+		for(String coordinate: possibleCoordinates) {
+			if (coordinate.equals(nextPosition)) {
 				return true;
 			}
 		}
@@ -142,10 +140,8 @@ public class Knight extends Piece{
 		builder.append((char)(currentPosition.charAt(1) - 2));
 		possibleCoordinates.add(builder.toString());
 		
-		for(String coordinate: possibleCoordinates)
-		{
-			if (coordinate.equals(nextPosition))
-			{
+		for(String coordinate: possibleCoordinates) {
+			if (coordinate.equals(nextPosition)) {
 				return true;
 			}
 		}
@@ -163,8 +159,7 @@ public class Knight extends Piece{
 	 * @return	Always returns true since a Knight can jump over other pieces
 	 */
 	@Override
-	public boolean isPieceBlocked(HashMap<String,Piece> boardgame, String currentPosition, String nextPosition)
-	{
+	public boolean isPieceBlocked(HashMap<String,Piece> boardgame, String currentPosition, String nextPosition) {
 		// Knights can jump over other pieces.
 		// Other methods will check to make sure there is not friendly piece at the next position.
 		

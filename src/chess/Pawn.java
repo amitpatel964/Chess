@@ -52,27 +52,22 @@ public class Pawn extends Piece{
 			}
 
 			// Pawns can never move more than two spaces
-			if (nextNum - currentNum > 2)
-			{
+			if (nextNum - currentNum > 2) {
 				return false;
 			}
 
 			if(currentAlph != nextAlph) {	// pawn can only go straight up unless diagonal kill
 
 				// Checking for en passant
-				if (enPassantCheck(b.board, currentPosition, nextPosition) && isCoordinateEmpty(b.board, nextAlph, nextNum))
-				{
+				if (enPassantCheck(b.board, currentPosition, nextPosition) && isCoordinateEmpty(b.board, nextAlph, nextNum)) {
 					StringBuilder builder = new StringBuilder();
 					builder.append(nextAlph);
 					builder.append(nextNum-1);
 					String pawnTakenOut = builder.toString();
 
-					if(Board.isBlackTile(nextAlph, nextNum-1))
-					{
+					if(Board.isBlackTile(nextAlph, nextNum-1)) {
 						b.board.put(pawnTakenOut, new EmptyTile("##"));
-					}
-					else
-					{
+					} else {
 						b.board.put(pawnTakenOut, new EmptyTile("  "));
 					}
 
@@ -126,19 +121,15 @@ public class Pawn extends Piece{
 
 			if(currentAlph != nextAlph) { // if not straight, it's a diagonal kill
 
-				if (enPassantCheck(b.board, currentPosition, nextPosition) && isCoordinateEmpty(b.board, nextAlph, nextNum))
-				{
+				if (enPassantCheck(b.board, currentPosition, nextPosition) && isCoordinateEmpty(b.board, nextAlph, nextNum)) {
 					StringBuilder builder = new StringBuilder();
 					builder.append(nextAlph);
 					builder.append(nextNum+1);
 					String pawnTakenOut = builder.toString();
 
-					if(Board.isBlackTile(nextAlph, nextNum+1))
-					{
+					if(Board.isBlackTile(nextAlph, nextNum+1)) {
 						b.board.put(pawnTakenOut, new EmptyTile("##"));
-					}
-					else
-					{
+					} else {
 						b.board.put(pawnTakenOut, new EmptyTile("  "));
 					}
 
@@ -224,19 +215,15 @@ public class Pawn extends Piece{
 			}
 
 			// Checking for en passant
-			if (enPassantCheck(board, currentPosition, nextPosition) && isCoordinateEmpty(board, nextAlph, nextNum))
-			{
+			if (enPassantCheck(board, currentPosition, nextPosition) && isCoordinateEmpty(board, nextAlph, nextNum)) {
 				StringBuilder builder = new StringBuilder();
 				builder.append(nextAlph);
 				builder.append(nextNum-1);
 				String pawnTakenOut = builder.toString();
 
-				if(Board.isBlackTile(nextAlph, nextNum-1))
-				{
+				if(Board.isBlackTile(nextAlph, nextNum-1)) {
 					board.put(pawnTakenOut, new EmptyTile("##"));
-				}
-				else
-				{
+				} else {
 					board.put(pawnTakenOut, new EmptyTile("  "));
 				}
 
@@ -284,26 +271,21 @@ public class Pawn extends Piece{
 			}
 
 			// Pawns can never move more than two spaces
-			if (currentNum - nextNum > 2)
-			{
+			if (currentNum - nextNum > 2) {
 				return false;
 			}
 
 			if(currentAlph != nextAlph) { // if not straight, it's a diagonal kill
 
-				if (enPassantCheck(board, currentPosition, nextPosition) && isCoordinateEmpty(board, nextAlph, nextNum))
-				{
+				if (enPassantCheck(board, currentPosition, nextPosition) && isCoordinateEmpty(board, nextAlph, nextNum)) {
 					StringBuilder builder = new StringBuilder();
 					builder.append(nextAlph);
 					builder.append(nextNum+1);
 					String pawnTakenOut = builder.toString();
 
-					if(Board.isBlackTile(nextAlph, nextNum+1))
-					{
+					if(Board.isBlackTile(nextAlph, nextNum+1)) {
 						board.put(pawnTakenOut, new EmptyTile("##"));
-					}
-					else
-					{
+					} else {
 						board.put(pawnTakenOut, new EmptyTile("  "));
 					}
 
@@ -361,8 +343,7 @@ public class Pawn extends Piece{
 	 * @param nextPosition	The position the Pawn is moving to
 	 * @return	True or false depending on if the En Passant attempt is valid
 	 */
-	public boolean enPassantCheck(HashMap<String,Piece> boardgame, String currentPosition, String nextPosition)
-	{
+	public boolean enPassantCheck(HashMap<String,Piece> boardgame, String currentPosition, String nextPosition) {
 		char currentAlph = currentPosition.charAt(0);
 		int currentNum = currentPosition.charAt(1)-'0';
 		char nextAlph = nextPosition.charAt(0);
@@ -370,43 +351,34 @@ public class Pawn extends Piece{
 		String positionAboveOrBelowPawn = "";
 		StringBuilder builder = new StringBuilder();
 
-		if(Board.is_white)
-		{
+		if(Board.is_white) {
 			if (currentPosition.equals("a5") || currentPosition.equals("b5") ||
 					currentPosition.equals("c5") || currentPosition.equals("d5") || currentPosition.equals("e5") ||
 					currentPosition.equals("f5") || currentPosition.equals("g5") || currentPosition.equals("h5") &&
-					Math.abs((currentAlph-nextAlph)) == 1 && nextNum - currentNum == 1)
-			{
+					Math.abs((currentAlph-nextAlph)) == 1 && nextNum - currentNum == 1) {
 				int rowBelowNextPosition = nextNum - 1;
 				builder.append(nextAlph);
 				builder.append(rowBelowNextPosition);
 				positionAboveOrBelowPawn = builder.toString();
 
-				if (boardgame.get(positionAboveOrBelowPawn) instanceof Pawn)
-				{
-					if (((Pawn) boardgame.get(positionAboveOrBelowPawn)).canBeEnPassanted)
-					{
+				if (boardgame.get(positionAboveOrBelowPawn) instanceof Pawn) {
+					if (((Pawn) boardgame.get(positionAboveOrBelowPawn)).canBeEnPassanted) {
 						return true;
 					}
 				}
 			}
-		}
-		else
-		{
+		} else {
 			if (currentPosition.equals("a4") || currentPosition.equals("b4") ||
 					currentPosition.equals("c4") || currentPosition.equals("d4") || currentPosition.equals("e4") ||
 					currentPosition.equals("f4") || currentPosition.equals("g4") || currentPosition.equals("h4") &&
-					Math.abs((currentAlph-nextAlph)) == 1 && currentNum - nextNum == 1)
-			{
+					Math.abs((currentAlph-nextAlph)) == 1 && currentNum - nextNum == 1) {
 				int rowAboveNextPosition = nextNum + 1;
 				builder.append(nextAlph);
 				builder.append(rowAboveNextPosition);
 				positionAboveOrBelowPawn = builder.toString();
 
-				if (boardgame.get(positionAboveOrBelowPawn) instanceof Pawn)
-				{
-					if (((Pawn) boardgame.get(positionAboveOrBelowPawn)).canBeEnPassanted)
-					{
+				if (boardgame.get(positionAboveOrBelowPawn) instanceof Pawn) {
+					if (((Pawn) boardgame.get(positionAboveOrBelowPawn)).canBeEnPassanted) {
 						return true;
 					}
 				}

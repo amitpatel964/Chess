@@ -32,8 +32,7 @@ public class Rook extends Piece{
 	public boolean isMoveValid(Board board, String currentPosition, String nextPosition) {
 		
 		if (currentPosition.charAt(0) == nextPosition.charAt(0) || 
-				currentPosition.charAt(1) == nextPosition.charAt(1))
-		{
+				currentPosition.charAt(1) == nextPosition.charAt(1)) {
 			return true;
 		}
 		
@@ -53,8 +52,7 @@ public class Rook extends Piece{
 	public boolean isMoveValid(HashMap<String,Piece> boardgame, String currentPosition, String nextPosition) {
 		
 		if (currentPosition.charAt(0) == nextPosition.charAt(0) || 
-				currentPosition.charAt(1) == nextPosition.charAt(1))
-		{
+				currentPosition.charAt(1) == nextPosition.charAt(1)) {
 			return true;
 		}
 		
@@ -71,8 +69,7 @@ public class Rook extends Piece{
 	 * @return	True or false depending on if the move is valid
 	 */
 	@Override
-	public boolean isPieceBlocked(HashMap<String,Piece> boardgame, String currentPosition, String nextPosition)
-	{
+	public boolean isPieceBlocked(HashMap<String,Piece> boardgame, String currentPosition, String nextPosition) {
 		char currentPositionLetter = currentPosition.charAt(0);
 		char currentPositionNumber = currentPosition.charAt(1);
 		char nextPositionLetter = nextPosition.charAt(0);
@@ -81,26 +78,20 @@ public class Rook extends Piece{
 		
 		// Same letter, increment number accordingly.
 		// Otherwise, increment the letter accordingly.
-		if (currentPositionLetter == nextPositionLetter)
-		{
-			if (currentPositionNumber < nextPositionNumber)
-			{
+		if (currentPositionLetter == nextPositionLetter) {
+			if (currentPositionNumber < nextPositionNumber) {
 				currentPositionNumber++;
-				while(currentPositionNumber < nextPositionNumber)
-				{
+				while(currentPositionNumber < nextPositionNumber) {
 					builder.setLength(0);
 					builder.append(currentPositionLetter);
 					builder.append(currentPositionNumber);
 					
-					if (!(boardgame.get(builder.toString()) instanceof EmptyTile))
-					{
+					if (!(boardgame.get(builder.toString()) instanceof EmptyTile)) {
 						return true;
 					}
 					currentPositionNumber++;
 				}
-			}
-			else
-			{
+			} else {
 				currentPositionNumber--;
 				while(currentPositionNumber > nextPositionNumber)
 				{
@@ -116,35 +107,27 @@ public class Rook extends Piece{
 				}
 			}
 		}
-		else if (currentPositionNumber == nextPositionNumber)
-		{
-			if (currentPositionLetter < nextPositionLetter)
-			{
+		else if (currentPositionNumber == nextPositionNumber) {
+			if (currentPositionLetter < nextPositionLetter) {
 				currentPositionLetter++;
-				while(currentPositionLetter < nextPositionLetter)
-				{
+				while(currentPositionLetter < nextPositionLetter) {
 					builder.setLength(0);
 					builder.append(currentPositionLetter);
 					builder.append(currentPositionNumber);
 					
-					if (!(boardgame.get(builder.toString()) instanceof EmptyTile))
-					{
+					if (!(boardgame.get(builder.toString()) instanceof EmptyTile)) {
 						return true;
 					}
 					currentPositionLetter++;
 				}
-			}
-			else
-			{
+			} else {
 				currentPositionLetter--;
-				while(currentPositionLetter > nextPositionLetter)
-				{
+				while(currentPositionLetter > nextPositionLetter) {
 					builder.setLength(0);
 					builder.append(currentPositionLetter);
 					builder.append(currentPositionNumber);
 					
-					if (!(boardgame.get(builder.toString()) instanceof EmptyTile))
-					{
+					if (!(boardgame.get(builder.toString()) instanceof EmptyTile)) {
 						return true;
 					}
 					currentPositionLetter--;

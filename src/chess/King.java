@@ -36,8 +36,7 @@ public class King extends Piece{
 		if (letterDifference == 1 && numberDifference == 1 || 
 				letterDifference == 0 && numberDifference == 0 ||
 				letterDifference == 1 && numberDifference == 0 ||
-				letterDifference == 0 && numberDifference == 1)
-		{
+				letterDifference == 0 && numberDifference == 1) {
 			return true;
 		}
 		
@@ -62,8 +61,7 @@ public class King extends Piece{
 		if (letterDifference == 1 && numberDifference == 1 || 
 				letterDifference == 0 && numberDifference == 0 ||
 				letterDifference == 1 && numberDifference == 0 ||
-				letterDifference == 0 && numberDifference == 1)
-		{
+				letterDifference == 0 && numberDifference == 1) {
 			return true;
 		}
 		
@@ -87,33 +85,27 @@ public class King extends Piece{
 		// King should not move in a way that will leave itself in a checked position.
 		
 		char opponentColor = 'w';
-		if (Board.is_white)
-		{
+		if (Board.is_white) {
 			opponentColor = 'b';
 		}
-		else if (Board.is_black)
-		{
+		else if (Board.is_black) {
 			opponentColor = 'w';
 		}
 		
 		// Checks to see if any piece can attack the king if the king moves.
 		// If there is such a piece, the method returns false since the king cannot move itself into a check.
-		for(String key: boardgame.keySet())
-		{
+		for(String key: boardgame.keySet()) {
 			Piece currentPiece = boardgame.get(key);
 
-			if (currentPiece instanceof King)
-			{
+			if (currentPiece instanceof King) {
 				if(currentPiece.pieceName.charAt(0) == opponentColor &&
-						currentPiece.isMoveValid(boardgame, key, nextPosition))
-				{
+						currentPiece.isMoveValid(boardgame, key, nextPosition)) {
 					return true;
 				}
 			}
-			else
-			{
-				if(currentPiece.pieceName.charAt(0) == opponentColor && ErrorCheck.checkForErrors(boardgame, key, nextPosition, Board.is_white))
-				{
+			else {
+				if(currentPiece.pieceName.charAt(0) == opponentColor && 
+						ErrorCheck.checkForErrors(boardgame, key, nextPosition, Board.is_white)) {
 					return true;
 				}
 			}

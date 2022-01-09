@@ -34,15 +34,13 @@ public class Queen extends Piece{
 		
 		// Rook movement check
 		if (currentPosition.charAt(0) == nextPosition.charAt(0) || 
-				currentPosition.charAt(1) == nextPosition.charAt(1))
-		{
+				currentPosition.charAt(1) == nextPosition.charAt(1)) {
 			return true;
 		}
 		
 		// Bishop movement check
 		if (Math.abs(currentPosition.charAt(0) - nextPosition.charAt(0)) ==
-				Math.abs(currentPosition.charAt(1) - nextPosition.charAt(1)))
-		{
+				Math.abs(currentPosition.charAt(1) - nextPosition.charAt(1))) {
 			return true;
 		}
 		
@@ -64,15 +62,13 @@ public class Queen extends Piece{
 		
 		// Rook movement check
 		if (currentPosition.charAt(0) == nextPosition.charAt(0) || 
-				currentPosition.charAt(1) == nextPosition.charAt(1))
-		{
+				currentPosition.charAt(1) == nextPosition.charAt(1)) {
 			return true;
 		}
 		
 		// Bishop movement check
 		if (Math.abs(currentPosition.charAt(0) - nextPosition.charAt(0)) ==
-				Math.abs(currentPosition.charAt(1) - nextPosition.charAt(1)))
-		{
+				Math.abs(currentPosition.charAt(1) - nextPosition.charAt(1))) {
 			return true;
 		}
 		
@@ -89,8 +85,7 @@ public class Queen extends Piece{
 	 * @return	True or false depending on if the move is valid
 	 */
 	@Override
-	public boolean isPieceBlocked(HashMap<String,Piece> boardgame, String currentPosition, String nextPosition)
-	{
+	public boolean isPieceBlocked(HashMap<String,Piece> boardgame, String currentPosition, String nextPosition) {
 		// The queen's movement is basically a bishop and rook combined.
 		// Therefore, we can combine the checks used for rook and bishop.
 		
@@ -102,142 +97,114 @@ public class Queen extends Piece{
 		
 		// First two if else statements are for rook like movements.
 		// Last four if else statements are for bishop like movements.
-		if (currentPositionLetter == nextPositionLetter)
-		{
-			if (currentPositionNumber < nextPositionNumber)
-			{
+		if (currentPositionLetter == nextPositionLetter) {
+			if (currentPositionNumber < nextPositionNumber) {
 				currentPositionNumber++;
-				while(currentPositionNumber < nextPositionNumber)
-				{
+				while(currentPositionNumber < nextPositionNumber) {
 					builder.setLength(0);
 					builder.append(currentPositionLetter);
 					builder.append(currentPositionNumber);
 
-					if (!(boardgame.get(builder.toString()) instanceof EmptyTile))
-					{
+					if (!(boardgame.get(builder.toString()) instanceof EmptyTile)) {
 						return true;
 					}
 					currentPositionNumber++;
 				}
-			}
-			else
-			{
+			} else {
 				currentPositionNumber--;
-				while(currentPositionNumber > nextPositionNumber)
-				{
+				while(currentPositionNumber > nextPositionNumber) {
 					builder.setLength(0);
 					builder.append(currentPositionLetter);
 					builder.append(currentPositionNumber);
 					
-					if (!(boardgame.get(builder.toString()) instanceof EmptyTile))
-					{
+					if (!(boardgame.get(builder.toString()) instanceof EmptyTile)) {
 						return true;
 					}
 					currentPositionNumber--;
 				}
 			}
 		}
-		else if (currentPositionNumber == nextPositionNumber)
-		{
-			if (currentPositionLetter < nextPositionLetter)
-			{
+		else if (currentPositionNumber == nextPositionNumber) {
+			if (currentPositionLetter < nextPositionLetter) {
 				currentPositionLetter++;
-				while(currentPositionLetter < nextPositionLetter)
-				{
+				while(currentPositionLetter < nextPositionLetter) {
 					builder.setLength(0);
 					builder.append(currentPositionLetter);
 					builder.append(currentPositionNumber);
 					
-					if (!(boardgame.get(builder.toString()) instanceof EmptyTile))
-					{
+					if (!(boardgame.get(builder.toString()) instanceof EmptyTile)) {
 						return true;
 					}
 					currentPositionLetter++;
 				}
-			}
-			else
-			{
+			} else {
 				currentPositionLetter--;
-				while(currentPositionLetter > nextPositionLetter)
-				{
+				while(currentPositionLetter > nextPositionLetter) {
 					builder.setLength(0);
 					builder.append(currentPositionLetter);
 					builder.append(currentPositionNumber);
 					
-					if (!(boardgame.get(builder.toString()) instanceof EmptyTile))
-					{
+					if (!(boardgame.get(builder.toString()) instanceof EmptyTile)) {
 						return true;
 					}
 					currentPositionLetter--;
 				}
 			}
 		}
-		else if (currentPositionLetter < nextPositionLetter && currentPositionNumber < nextPositionNumber)
-		{
+		else if (currentPositionLetter < nextPositionLetter && currentPositionNumber < nextPositionNumber) {
 			currentPositionLetter++;
 			currentPositionNumber++;
-			while(currentPositionLetter < nextPositionLetter && currentPositionNumber < nextPositionNumber)
-			{
+			while(currentPositionLetter < nextPositionLetter && currentPositionNumber < nextPositionNumber) {
 				builder.setLength(0);
 				builder.append(currentPositionLetter);
 				builder.append(currentPositionNumber);
 				
-				if (!(boardgame.get(builder.toString()) instanceof EmptyTile))
-				{
+				if (!(boardgame.get(builder.toString()) instanceof EmptyTile)) {
 					return true;
 				}
 				currentPositionLetter++;
 				currentPositionNumber++;
 			}
 		}
-		else if (currentPositionLetter > nextPositionLetter && currentPositionNumber > nextPositionNumber)
-		{
+		else if (currentPositionLetter > nextPositionLetter && currentPositionNumber > nextPositionNumber) {
 			currentPositionLetter--;
 			currentPositionNumber--;
-			while(currentPositionLetter > nextPositionLetter && currentPositionNumber > nextPositionNumber)
-			{
+			while(currentPositionLetter > nextPositionLetter && currentPositionNumber > nextPositionNumber) {
 				builder.setLength(0);
 				builder.append(currentPositionLetter);
 				builder.append(currentPositionNumber);
 				
-				if (!(boardgame.get(builder.toString()) instanceof EmptyTile))
-				{
+				if (!(boardgame.get(builder.toString()) instanceof EmptyTile)) {
 					return true;
 				}
 				currentPositionLetter--;
 				currentPositionNumber--;
 			}
 		}
-		else if (currentPositionLetter > nextPositionLetter && currentPositionNumber < nextPositionNumber)
-		{
+		else if (currentPositionLetter > nextPositionLetter && currentPositionNumber < nextPositionNumber) {
 			currentPositionLetter--;
 			currentPositionNumber++;
-			while(currentPositionLetter > nextPositionLetter && currentPositionNumber < nextPositionNumber)
-			{
+			while(currentPositionLetter > nextPositionLetter && currentPositionNumber < nextPositionNumber) {
 				builder.setLength(0);
 				builder.append(currentPositionLetter);
 				builder.append(currentPositionNumber);
 				
-				if (!(boardgame.get(builder.toString()) instanceof EmptyTile))
-				{
+				if (!(boardgame.get(builder.toString()) instanceof EmptyTile)) {
 					return true;
 				}
 				currentPositionLetter--;
 				currentPositionNumber++;
 			}
 		}
-		else if (currentPositionLetter < nextPositionLetter && currentPositionNumber > nextPositionNumber)
-		{
+		else if (currentPositionLetter < nextPositionLetter && currentPositionNumber > nextPositionNumber) {
 			currentPositionLetter++;
 			currentPositionNumber--;
-			while(currentPositionLetter < nextPositionLetter && currentPositionNumber > nextPositionNumber)
-			{
+			while(currentPositionLetter < nextPositionLetter && currentPositionNumber > nextPositionNumber) {
 				builder.setLength(0);
 				builder.append(currentPositionLetter);
 				builder.append(currentPositionNumber);
 				
-				if (!(boardgame.get(builder.toString()) instanceof EmptyTile))
-				{
+				if (!(boardgame.get(builder.toString()) instanceof EmptyTile)) {
 					return true;
 				}
 				currentPositionLetter++;

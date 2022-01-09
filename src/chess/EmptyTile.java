@@ -9,14 +9,14 @@ import java.util.HashMap;
  *
  */
 
-public class EmptyTile extends Piece{
+public class EmptyTile extends Piece {
 
 	/**
 	 * Handles naming of the tile. Should be ## or "  ".
 	 * 
 	 * @param pieceName Name of tile
 	 */
-    public EmptyTile(String pieceName){
+    public EmptyTile(String pieceName) {
         super(pieceName);
     }
 

@@ -23,23 +23,19 @@ public class KingCheck {
 	 * @param isWhiteTurn	Determines whose turn it currently is
 	 * @return	True or false depending on if a check has occurred
 	 */
-	public static boolean checkCheck(HashMap<String,Piece> boardgame, Piece opponentPieceLastMoved, String positionOfOpponent, boolean isWhiteTurn)
-	{
+	public static boolean checkCheck(HashMap<String,Piece> boardgame, Piece opponentPieceLastMoved, 
+			String positionOfOpponent, boolean isWhiteTurn) {
 		String kingPosition = null;
 		
 		// Check what color the opponent's last moved piece and find the king of the other color
 		// Get the position of the king
-		if (opponentPieceLastMoved.pieceName.charAt(0) == 'b')
-		{
+		if (opponentPieceLastMoved.pieceName.charAt(0) == 'b') {
 			kingPosition = Board.whiteKingPosition;
-		}
-		else
-		{
+		} else {
 			kingPosition = Board.blackKingPosition;
 		}
 		
-		if (ErrorCheck.checkForErrors(boardgame, positionOfOpponent, kingPosition, isWhiteTurn))
-		{
+		if (ErrorCheck.checkForErrors(boardgame, positionOfOpponent, kingPosition, isWhiteTurn)) {
 			return true;
 		}
 		
@@ -56,10 +52,8 @@ public class KingCheck {
 	 * @return	True or false depending on if the King can move to get out of the check
 	 */
 	public static boolean checkCheckForCheckmate(HashMap<String,Piece> boardgame,
-												 String positionOfOpponent, String kingPossiblePosition)
-	{
-		if (ErrorCheck.checkForErrors(boardgame, positionOfOpponent, kingPossiblePosition, Board.is_white))
-		{
+												 String positionOfOpponent, String kingPossiblePosition) {
+		if (ErrorCheck.checkForErrors(boardgame, positionOfOpponent, kingPossiblePosition, Board.is_white)) {
 			return true;
 		}
 
@@ -76,25 +70,20 @@ public class KingCheck {
 	 * @param boardObject	Board class instance that holds various pieces of information
 	 * @return	True or false depending on if a King piece was left in check
 	 */
-	public static boolean kingLeftInCheck(HashMap<String,Piece> boardgame, String kingPosition, boolean whiteTurn, Board boardObject)
-	{
+	public static boolean kingLeftInCheck(HashMap<String,Piece> boardgame, String kingPosition, boolean whiteTurn, Board boardObject) {
 		char opponentColor = 'w';
 
-		if(boardgame.get(kingPosition).pieceName.charAt(0) == 'w')
-		{
+		if(boardgame.get(kingPosition).pieceName.charAt(0) == 'w') {
 			opponentColor = 'b';
-		}
-		else
-		{
+		} else {
 			opponentColor = 'w';
 		}
 		
-		for (String key: boardgame.keySet())
-		{
+		for (String key: boardgame.keySet()) {
 			Piece currentPiece = boardgame.get(key);
 
-			if (currentPiece.pieceName.charAt(0) == opponentColor && ErrorCheck.checkForErrors(boardgame, key, kingPosition, Board.is_white))
-			{
+			if (currentPiece.pieceName.charAt(0) == opponentColor && 
+					ErrorCheck.checkForErrors(boardgame, key, kingPosition, Board.is_white)) {
 				return true;
 			}
 		}
@@ -111,14 +100,11 @@ public class KingCheck {
 	 * @param color	Determines color of the opposing player
 	 * @return	True or false depending on if the King has to go through a check
 	 */
-	public static boolean castlingKingCheck(Board boardObject, String position, char color)
-	{
-		for (String key: boardObject.board.keySet())
-		{
+	public static boolean castlingKingCheck(Board boardObject, String position, char color) {
+		for (String key: boardObject.board.keySet()) {
 			Piece currentPiece = boardObject.board.get(key);
 			if(!(currentPiece instanceof EmptyTile) && currentPiece.pieceName.charAt(0) == color &&
-			ErrorCheck.checkForErrors(boardObject.board, key, position, Board.is_white))
-			{
+			ErrorCheck.checkForErrors(boardObject.board, key, position, Board.is_white)) {
 				return true;
 			}
 		}
@@ -135,28 +121,22 @@ public class KingCheck {
 	 * @param attackerPosition	Position of the attacking piece
 	 * @return	True or false depending on if the opposing piece can be blocked or attacked
 	 */
-	public static boolean canCheckBeBlocked(HashMap<String,Piece> boardgame, Piece attackingPiece, String attackerPosition)
-	{
+	public static boolean canCheckBeBlocked(HashMap<String,Piece> boardgame, Piece attackingPiece, String attackerPosition) {
 		String kingPosition = null;
 		char defendingKingColor = 'a';
 		
 		// Check what color the opponent's last moved piece and find the king of the other color
 		// Get the position of the king
-		if (attackingPiece.pieceName.charAt(0) == 'b')
-		{
+		if (attackingPiece.pieceName.charAt(0) == 'b') {
 			kingPosition = Board.whiteKingPosition;
-		}
-		else
-		{
+		} else {
 			kingPosition = Board.blackKingPosition;
 		}
 		
 		// Check if a piece can attack the piece that is putting the defending king into check.
-		for (String key: boardgame.keySet())
-		{
+		for (String key: boardgame.keySet()) {
 			if (boardgame.get(key).pieceName.charAt(0) == defendingKingColor &&
-					ErrorCheck.checkForErrors(boardgame, key, kingPosition, Board.is_white))
-			{
+					ErrorCheck.checkForErrors(boardgame, key, kingPosition, Board.is_white)) {
 				return true;
 			}
 		}
@@ -168,16 +148,11 @@ public class KingCheck {
 		ArrayList<String> tilesToBlock2 = new ArrayList<String>();
 
 		// First check if the attacking piece is a rook.
-		if (attackingPiece instanceof Rook)
-		{
+		if (attackingPiece instanceof Rook) {
 			tilesToBlock = rookBlock(kingPosition, attackerPosition);
-		}
-		else if (attackingPiece instanceof Bishop)
-		{
+		} else if (attackingPiece instanceof Bishop) {
 			tilesToBlock = bishopBlock(kingPosition, attackerPosition);
-		}
-		else if (attackingPiece instanceof Queen)
-		{
+		} else if (attackingPiece instanceof Queen) {
 			tilesToBlock = rookBlock(kingPosition, attackerPosition);
 			tilesToBlock2 = bishopBlock(kingPosition, attackerPosition);
 
@@ -186,14 +161,10 @@ public class KingCheck {
 		
 		// Check if any friendly pieces can block the attacker
 		// If not, return false and check if there is a checkmate
-		for (String key: boardgame.keySet())
-		{
-			if (boardgame.get(key).pieceName.charAt(0) == defendingKingColor)
-			{
-				for (String position: tilesToBlock)
-				{
-					if (ErrorCheck.checkForErrors(boardgame, key, position, Board.is_white))
-					{
+		for (String key: boardgame.keySet()) {
+			if (boardgame.get(key).pieceName.charAt(0) == defendingKingColor) {
+				for (String position: tilesToBlock) {
+					if (ErrorCheck.checkForErrors(boardgame, key, position, Board.is_white)) {
 						return true;
 					}
 				}
@@ -212,8 +183,7 @@ public class KingCheck {
 	 * @param attackerPosition	Position of the attacking piece
 	 * @return	True or false depending on if a checkmate has occurred or not
 	 */
-	public static boolean checkmateCheck(HashMap<String,Piece> boardgame, Piece attackingPiece, String attackerPosition)
-	{
+	public static boolean checkmateCheck(HashMap<String,Piece> boardgame, Piece attackingPiece, String attackerPosition) {
 		// kingToCheck is a placeholder. Need to figure out a better way to get the king variable rather than searching for it again.
 		
 		// This method is used when a check occurs. Once a check occurs, the tiles surrounding the king are checked.
@@ -221,23 +191,17 @@ public class KingCheck {
 		
 		String kingPosition = "";
 		
-		if (attackingPiece.pieceName.charAt(0) == 'b')
-		{
+		if (attackingPiece.pieceName.charAt(0) == 'b') {
 			kingPosition = Board.whiteKingPosition;
-		}
-		else
-		{
+		} else {
 			kingPosition = Board.blackKingPosition;
 		}
 		
 		// Check what color the opponent's last moved piece and find the king of the other color
 		// Get the position of the king
-		if (attackingPiece.pieceName.charAt(0) == 'b')
-		{
+		if (attackingPiece.pieceName.charAt(0) == 'b') {
 			kingPosition = Board.whiteKingPosition;
-		}
-		else
-		{
+		} else {
 			kingPosition = Board.blackKingPosition;
 		}
 		
@@ -287,21 +251,15 @@ public class KingCheck {
 		builder.append((char)(kingPosition.charAt(1) - 1));
 		possibleCoordinates.add(builder.toString());
 		
-		for (String coordinate: possibleCoordinates)
-		{
-			if (!ErrorCheck.checkForErrorsCheckmate(boardgame, kingPosition, coordinate))
-			{
+		for (String coordinate: possibleCoordinates) {
+			if (!ErrorCheck.checkForErrorsCheckmate(boardgame, kingPosition, coordinate)) {
 				// If the king is in check and there is no friendly piece that can either block or attack the opposing piece,
 				// check if the surrounding tiles can be moved to. If there is a friendly piece or if the coordinate is 
 				// nonexistant, the king cannot go there.
 				tilesBlocked++;
-			}
-			else
-			{
-				for(String key: boardgame.keySet())
-				{
-					if (checkCheckForCheckmate(boardgame, key, coordinate))
-					{
+			} else {
+				for(String key: boardgame.keySet()) {
+					if (checkCheckForCheckmate(boardgame, key, coordinate)) {
 						// If a king moves to this tile, it will be in check.
 						// Therefore, the king cannot move to this tile.
 						tilesBlocked++;
@@ -310,8 +268,7 @@ public class KingCheck {
 			}
 		}
 		
-		if (tilesBlocked == 8)
-		{
+		if (tilesBlocked == 8) {
 			return true;
 		}
 		
@@ -326,8 +283,7 @@ public class KingCheck {
 	 * @param attackerPosition Position of the rook or queen
 	 * @return An ArrayList of all of the positions that the rook or queen has to go through to attack the king
 	 */
-	public static ArrayList<String> rookBlock(String kingPosition, String attackerPosition)
-	{
+	public static ArrayList<String> rookBlock(String kingPosition, String attackerPosition) {
 		ArrayList<String> positionsToBlock = new ArrayList<String>();
 		
 		char kingLetter = kingPosition.charAt(0);
@@ -336,13 +292,10 @@ public class KingCheck {
 		char attackerNumber = attackerPosition.charAt(1);
 		StringBuilder builder = new StringBuilder();
 		
-		if (kingLetter == attackerLetter)
-		{
-			if (kingNumber < attackerNumber)
-			{
+		if (kingLetter == attackerLetter) {
+			if (kingNumber < attackerNumber) {
 				kingNumber++;
-				while(kingNumber < attackerNumber)
-				{
+				while(kingNumber < attackerNumber) {
 					builder.setLength(0);
 					builder.append(kingLetter);
 					builder.append(kingNumber);
@@ -350,12 +303,9 @@ public class KingCheck {
 					positionsToBlock.add(builder.toString());
 					kingNumber++;
 				}
-			}
-			else
-			{
+			} else {
 				kingNumber--;
-				while(kingNumber > attackerNumber)
-				{
+				while(kingNumber > attackerNumber) {
 					builder.setLength(0);
 					builder.append(kingLetter);
 					builder.append(kingNumber);
@@ -365,13 +315,10 @@ public class KingCheck {
 				}
 			}
 		}
-		else if (kingNumber == attackerNumber)
-		{
-			if (kingLetter < attackerNumber)
-			{
+		else if (kingNumber == attackerNumber) {
+			if (kingLetter < attackerNumber) {
 				kingLetter++;
-				while(kingLetter < attackerLetter)
-				{
+				while(kingLetter < attackerLetter) {
 					builder.setLength(0);
 					builder.append(kingLetter);
 					builder.append(kingNumber);
@@ -380,11 +327,9 @@ public class KingCheck {
 					kingLetter++;
 				}
 			}
-			else
-			{
+			else {
 				kingLetter--;
-				while(kingLetter > attackerLetter)
-				{
+				while(kingLetter > attackerLetter) {
 					builder.setLength(0);
 					builder.append(kingLetter);
 					builder.append(kingNumber);
@@ -406,8 +351,7 @@ public class KingCheck {
 	 * @param attackerPosition Position of the bishop or queen
 	 * @return An arraylist of all of the positions that the bishop or queen has to go through to attack the king
 	 */
-	public static ArrayList<String> bishopBlock(String kingPosition, String attackerPosition)
-	{
+	public static ArrayList<String> bishopBlock(String kingPosition, String attackerPosition) {
 		ArrayList<String> positionsToBlock = new ArrayList<String>();
 		
 		char kingLetter = kingPosition.charAt(0);
@@ -416,12 +360,10 @@ public class KingCheck {
 		char attackerNumber = attackerPosition.charAt(1);
 		StringBuilder builder = new StringBuilder();
 		
-		if (kingLetter < attackerLetter && kingNumber < attackerNumber)
-		{
+		if (kingLetter < attackerLetter && kingNumber < attackerNumber) {
 			kingLetter++;
 			kingNumber++;
-			while(kingLetter < attackerLetter && kingNumber < attackerNumber)
-			{
+			while(kingLetter < attackerLetter && kingNumber < attackerNumber) {
 				builder.setLength(0);
 				builder.append(kingLetter);
 				builder.append(kingNumber);
@@ -431,12 +373,10 @@ public class KingCheck {
 				kingNumber++;
 			}
 		}
-		else if (kingLetter > attackerLetter && kingNumber > attackerNumber)
-		{
+		else if (kingLetter > attackerLetter && kingNumber > attackerNumber) {
 			kingLetter--;
 			kingNumber--;
-			while(kingLetter > attackerLetter && kingNumber > attackerNumber)
-			{
+			while(kingLetter > attackerLetter && kingNumber > attackerNumber) {
 				builder.setLength(0);
 				builder.append(kingLetter);
 				builder.append(kingNumber);
@@ -446,12 +386,10 @@ public class KingCheck {
 				kingNumber--;
 			}
 		}
-		else if (kingLetter > attackerLetter && kingNumber < attackerNumber)
-		{
+		else if (kingLetter > attackerLetter && kingNumber < attackerNumber) {
 			kingLetter--;
 			kingNumber++;
-			while(kingLetter > attackerLetter && kingNumber < attackerNumber)
-			{
+			while(kingLetter > attackerLetter && kingNumber < attackerNumber) {
 				builder.setLength(0);
 				builder.append(kingLetter);
 				builder.append(kingNumber);
@@ -461,12 +399,10 @@ public class KingCheck {
 				kingNumber++;
 			}
 		}
-		else if (kingLetter < attackerLetter && kingNumber > attackerNumber)
-		{
+		else if (kingLetter < attackerLetter && kingNumber > attackerNumber) {
 			kingLetter++;
 			kingNumber--;
-			while(kingLetter < attackerLetter && kingNumber > attackerNumber)
-			{
+			while(kingLetter < attackerLetter && kingNumber > attackerNumber) {
 				builder.setLength(0);
 				builder.append(kingLetter);
 				builder.append(kingNumber);

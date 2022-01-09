@@ -9,7 +9,7 @@ import java.util.HashMap;
  *
  */
 
-public class Bishop extends Piece{
+public class Bishop extends Piece {
 
 	/**
 	 * Names the bishop piece. It should be wB or bB.
@@ -31,8 +31,7 @@ public class Bishop extends Piece{
 	public boolean isMoveValid(Board boardObject, String currentPosition, String nextPosition) {
 		
 		if (Math.abs(currentPosition.charAt(0) - nextPosition.charAt(0)) ==
-				Math.abs(currentPosition.charAt(1) - nextPosition.charAt(1)))
-		{
+				Math.abs(currentPosition.charAt(1) - nextPosition.charAt(1))) {
 			return true;
 		}
 		
@@ -51,8 +50,7 @@ public class Bishop extends Piece{
 	public boolean isMoveValid(HashMap<String,Piece> boardgame, String currentPosition, String nextPosition) {
 		
 		if (Math.abs(currentPosition.charAt(0) - nextPosition.charAt(0)) ==
-				Math.abs(currentPosition.charAt(1) - nextPosition.charAt(1)))
-		{
+				Math.abs(currentPosition.charAt(1) - nextPosition.charAt(1))) {
 			return true;
 		}
 		
@@ -69,8 +67,7 @@ public class Bishop extends Piece{
 	 * @return	True or false depending on if the move is valid
 	 */
 	@Override
-	public boolean isPieceBlocked(HashMap<String,Piece> boardgame, String currentPosition, String nextPosition)
-	{
+	public boolean isPieceBlocked(HashMap<String,Piece> boardgame, String currentPosition, String nextPosition) {
 		char currentPositionLetter = currentPosition.charAt(0);
 		char currentPositionNumber = currentPosition.charAt(1);
 		char nextPositionLetter = nextPosition.charAt(0);
@@ -79,54 +76,45 @@ public class Bishop extends Piece{
 		
 		// There are four possible scenarios for the two coordinates to differ.
 		// Once a scenario is found, check if there are any pieces blocking the path.
-		if (currentPositionLetter < nextPositionLetter && currentPositionNumber < nextPositionNumber)
-		{
+		if (currentPositionLetter < nextPositionLetter && currentPositionNumber < nextPositionNumber) {
 			currentPositionLetter++;
 			currentPositionNumber++;
-			while(currentPositionLetter < nextPositionLetter && currentPositionNumber < nextPositionNumber)
-			{
+			while(currentPositionLetter < nextPositionLetter && currentPositionNumber < nextPositionNumber) {
 				builder.setLength(0);
 				builder.append(currentPositionLetter);
 				builder.append(currentPositionNumber);
 				
-				if (!(boardgame.get(builder.toString()) instanceof EmptyTile))
-				{
+				if (!(boardgame.get(builder.toString()) instanceof EmptyTile)) {
 					return true;
 				}
 				currentPositionLetter++;
 				currentPositionNumber++;
 			}
 		}
-		else if (currentPositionLetter > nextPositionLetter && currentPositionNumber > nextPositionNumber)
-		{
+		else if (currentPositionLetter > nextPositionLetter && currentPositionNumber > nextPositionNumber) {
 			currentPositionLetter--;
 			currentPositionNumber--;
-			while(currentPositionLetter > nextPositionLetter && currentPositionNumber > nextPositionNumber)
-			{
+			while(currentPositionLetter > nextPositionLetter && currentPositionNumber > nextPositionNumber) {
 				builder.setLength(0);
 				builder.append(currentPositionLetter);
 				builder.append(currentPositionNumber);
 				
-				if (!(boardgame.get(builder.toString()) instanceof EmptyTile))
-				{
+				if (!(boardgame.get(builder.toString()) instanceof EmptyTile)) {
 					return true;
 				}
 				currentPositionLetter--;
 				currentPositionNumber--;
 			}
 		}
-		else if (currentPositionLetter > nextPositionLetter && currentPositionNumber < nextPositionNumber)
-		{
+		else if (currentPositionLetter > nextPositionLetter && currentPositionNumber < nextPositionNumber) {
 			currentPositionLetter--;
 			currentPositionNumber++;
-			while(currentPositionLetter > nextPositionLetter && currentPositionNumber < nextPositionNumber)
-			{
+			while(currentPositionLetter > nextPositionLetter && currentPositionNumber < nextPositionNumber) {
 				builder.setLength(0);
 				builder.append(currentPositionLetter);
 				builder.append(currentPositionNumber);
 				
-				if (!(boardgame.get(builder.toString()) instanceof EmptyTile))
-				{
+				if (!(boardgame.get(builder.toString()) instanceof EmptyTile)) {
 					return true;
 				}
 				currentPositionLetter--;
@@ -137,14 +125,12 @@ public class Bishop extends Piece{
 		{
 			currentPositionLetter++;
 			currentPositionNumber--;
-			while(currentPositionLetter < nextPositionLetter && currentPositionNumber > nextPositionNumber)
-			{
+			while(currentPositionLetter < nextPositionLetter && currentPositionNumber > nextPositionNumber) {
 				builder.setLength(0);
 				builder.append(currentPositionLetter);
 				builder.append(currentPositionNumber);
 				
-				if (!(boardgame.get(builder.toString()) instanceof EmptyTile))
-				{
+				if (!(boardgame.get(builder.toString()) instanceof EmptyTile)) {
 					return true;
 				}
 				currentPositionLetter++;
